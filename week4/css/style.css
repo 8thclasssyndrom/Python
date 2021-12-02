@@ -1,0 +1,33 @@
+*{ border:4px black solid;
+    background-color: greenyellow ;
+  }
+
+h1 {
+    color:blueviolet; 
+    font-size:50px;
+    font-weight: 400;
+    background-color: black;
+    }
+div{
+    background-color: blue;
+    color:crimson;
+    width:200px ; 
+    height:200px;
+    }
+
+
+.blocks {background-color: tomato;
+    color:yellow;
+    font-size: 40px;
+    width:400px;
+    height:500px;}
+
+.title{
+    color:pink;
+    background-color: black;
+    }
+.extra{color:crimson;
+    background-color:lightblue;
+
+
+    }
