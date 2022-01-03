@@ -314,69 +314,90 @@ sqlalchemy
 
 
 """
-import psycopg2
-from sqlalchemy.sql.sqltypes import DECIMAL, Numeric
-connection = psycopg2.connect('dbname = practice user=ananas password = 1 host = localhost port=5432')
-print(connection)
+# import psycopg2
+# from sqlalchemy.sql.sqltypes import DECIMAL, Numeric
+# connection = psycopg2.connect('dbname = practice user=ananas password = 1 host = localhost port=5432')
+# print(connection)
 
 
-'''Cursor - промежуточная памятб для сохранения запросов'''
+# '''Cursor - промежуточная памятб для сохранения запросов'''
 
-cursor = connection.cursor()
+# cursor = connection.cursor()
 
-#SELECT
-cursor.execute('SELECT * FROM products;')
-results = cursor.fetchall()
-print(results)
+# #SELECT
+# cursor.execute('SELECT * FROM products;')
+# results = cursor.fetchall()
+# print(results)
 
-#получаем одну запись
-cursor.execute('SELECT * FROM  products WHERE id = 1;')
-product = cursor.fetchone()
-print(product)
-
-
-max_price =55000
-cursor.execute('SELECT *FROM product WHERE  price < %s;', (max_price, ))
-results = cursor.fetchall()
-
-min_price = 20000
-max_price = 50000
+# #получаем одну запись
+# cursor.execute('SELECT * FROM  products WHERE id = 1;')
+# product = cursor.fetchone()
+# print(product)
 
 
-cursor.execute('SELECT * FROM  products WHERE price BETWEEN  $s AND %s;', (min_price, max_price))
-results = cursor.fetchall()
+# max_price =55000
+# cursor.execute('SELECT *FROM product WHERE  price < %s;', (max_price, ))
+# results = cursor.fetchall()
+
+# min_price = 20000
+# max_price = 50000
 
 
-new_product = {'name': 'Hisense 43 Smart TV', 'price': 20000, 'category': 'tv'}
-cursor.execute('INSERT INTO products(name, price, category) VALUES (%(name)s, %(price)s, %(category)s)', new_product)
-
-connection.commit()
+# cursor.execute('SELECT * FROM  products WHERE price BETWEEN  $s AND %s;', (min_price, max_price))
+# results = cursor.fetchall()
 
 
-from sqlalchemy import create_engine,Column, SmallInteger, String, NUMERIC
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+# new_product = {'name': 'Hisense 43 Smart TV', 'price': 20000, 'category': 'tv'}
+# cursor.execute('INSERT INTO products(name, price, category) VALUES (%(name)s, %(price)s, %(category)s)', new_product)
 
-engine = create_engine('postgresql://ananas:1@localhost:5432/practice')
-Base = declarative_base()
-
-Session = sessionmaker(bind=engine)
-session = Session()
+# connection.commit()
 
 
-class Product:
-    __tablename__ = 'products'
+# from sqlalchemy import create_engine,Column, SmallInteger, String, NUMERIC
+# from sqlalchemy.ext.declarative import declarative_base
+# from sqlalchemy.orm import sessionmaker
 
-    id = Column(SmallInteger, primary_key=True)
-    name = Column(String)
-    price = Column(Numeric(10,2))
-    category = Column(String(30))
+# engine = create_engine('postgresql://ananas:1@localhost:5432/practice')
+# Base = declarative_base()
 
-#SELECT
-products = session.query(Product).all()
-#INSERT
-#UPDATE
-#DELETE
+# Session = sessionmaker(bind=engine)
+# session = Session()
+
+
+# class Product:
+#     __tablename__ = 'products'
+
+#     id = Column(SmallInteger, primary_key=True)
+#     name = Column(String)
+#     price = Column(Numeric(10,2))
+#     category = Column(String(30))
+
+# #фильтрация
+# products = session.query(Product).filter(Product.price > 50000).all()
+# # SELECT * FROM  products WHERE price > 50000;
+
+
+
+# #SELECT
+# products = session.query(Product).all()
+# #INSERT
+# product1 = Product(name = 'Apple Iphone 12 Pro', price = 80000, category = 'phones')
+# product2 = Product(name = 'Philipps Ambylight', price = 40000, category = 'tv')
+# session.add(product1)
+# session.add_all([product1, product2])
+# session.commit()
+
+# #UPDATE
+# session.query(Product).update(Product.price = 50000)
+# # UPDATE products SET price = 50000
+
+# session.query(Product).filter(Product.id.in(1,2,3)).update(Product.price = 50000)
+
+# #DELETE
+# session.query(Product).delete()
+# # DELETE FROM products
+# session.query(Product).filter(Product.id.in([1,2,3])).delete()
+# # DELETE FROM  product WHERE  id IN (1,2,3)
 
 
 """

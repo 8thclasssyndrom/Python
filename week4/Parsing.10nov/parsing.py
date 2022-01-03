@@ -39,6 +39,22 @@ find_all() - обращение к нескольким однотипным э�
 get() - обращение к атрибутам элементам.
 text() - обращение к тексту
 
+
+
+1.Как отключить виртуальное окружение ?
+ответ:
+ deactivate
+ exit
+ quit
+ diactivate
+
+2.Что значит ошибка 404 ?
+Error Not Found
+Page Not Found
+Serer Not Found
+Life Not Found
+
+
 """
 """
 Таким образом можно получить все элементы с span.
@@ -48,23 +64,24 @@ text() - обращение к тексту
 
 # url = 'https://quotes.toscrape.com/'
 # response = requests.get(url)
-# soup = BeautifulSoup(response.text, 'lxml')
+# soup = BeautifulSoup(response, 'lxml')
 # quotes = soup.find_all('span', class_='text')
+# print(quotes)
 
 """
 Используя цикл for и метод text можно получить только готовый текст
 """
 
-# import requests
-# from bs4 import BeautifulSoup
 
-# url = 'https://quotes.toscrape.com/'
-# response = requests.get(url)
-# soup = BeautifulSoup(response.text, 'lxml')
-# quotes = soup.find_all('span', class_='text')
+import requests
+from bs4 import BeautifulSoup
+url = 'https://quotes.toscrape.com/'
+response = requests.get(url).text
+soup = BeautifulSoup(response, 'lxml')
+quotes = soup.find_all('span', class_='text')
 
-# for quote in quotes:
-#     print(quote.text)
+for quote in quotes:
+    print(quote.text)
 
 """
 Для поиска и вывода всех авторов можно использовать следующий код. 
@@ -154,9 +171,6 @@ text() - обращение к тексту
 # soup.find('div',class_ ="desktop-rating-selection-film-item")
 
 # print(r.text)
-
-
-
 
 
 """
@@ -252,7 +266,6 @@ Selenium - используется для парсинга сайтов
 """
 
 
-
 # user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36'
 # url = 'https://www.eldorado.ru/c/noutbuki/'
 
@@ -278,17 +291,14 @@ Selenium - используется для парсинга сайтов
 # price = product.find('span',{'data-pc':'offer_price'}).text
 
 
-
 # import csv
-# def write_to_csv(data):   
+# def write_to_csv(data):
 #     with open('data.csv','w') as file:
 #         columns = ['title','description']
 #         writer = csv.DictWriter(file, columns)
 #         writer.writeheader()
 #         for prod in data:
 #             writer.writerow()
-
-
 
 
 """
@@ -507,28 +517,26 @@ print(get_info('https://www.makers.kg'))
 """
 
 
-
-
 # import requests
 # from bs4 import BeautifulSoup
 # import lxml
-# def get_info(url): 
-#     source = requests.get(url).text 
-#     soup = BeautifulSoup(source, "lxml") 
-#     info = soup.find("div", class_="feature-cards-wrapper") 
-#     cards = info.find_all("div", class_="feature-cards-card-wrapper") 
- 
-#     list_ = [] 
-#     for card in cards: 
-#         name = card.find("a").find("h3").text 
-#         description = card.find("div", class_="feature-cards-card-info-subtitle").text 
-#         image_link = url + card.find("img").get("src")[1:] 
-#         dict_ = {"name": name, "description": description, "image_link": image_link} 
-#         list_.append(dict_) 
-#     return list_ 
-         
- 
-# list_ = get_info("https://www.makers.kg") 
+# def get_info(url):
+#     source = requests.get(url).text
+#     soup = BeautifulSoup(source, "lxml")
+#     info = soup.find("div", class_="feature-cards-wrapper")
+#     cards = info.find_all("div", class_="feature-cards-card-wrapper")
+
+#     list_ = []
+#     for card in cards:
+#         name = card.find("a").find("h3").text
+#         description = card.find("div", class_="feature-cards-card-info-subtitle").text
+#         image_link = url + card.find("img").get("src")[1:]
+#         dict_ = {"name": name, "description": description, "image_link": image_link}
+#         list_.append(dict_)
+#     return list_
+
+
+# list_ = get_info("https://www.makers.kg")
 # print(list_)
 
 """
@@ -567,9 +575,6 @@ print(find_category(category_list, 'Ноутбуки'))
 #         if keyword in categories:
 #             list_.append(categories)
 #     return list_
-        
-    
-# print(find_category(category_list, 'память')) 
 
 
-
+# print(find_category(category_list, 'память'))
